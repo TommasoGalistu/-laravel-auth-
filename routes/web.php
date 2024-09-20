@@ -14,10 +14,10 @@ use App\Http\Controllers\Guest\PageController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// rotte guest
 Route::get('/', [PageController::class, 'index']);
 
-
+// rotte admin
 Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->name('admin.')
