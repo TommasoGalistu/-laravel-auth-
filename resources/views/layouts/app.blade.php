@@ -10,7 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -23,11 +23,14 @@
     <div class="app">
         <@include('admin.partial.header')
         <div class="content">
+            @auth
             <aside class="sidebar">
-                Sidebar
+               <a href="{{ route('admin.posts.index') }}">All Project</a>
             </aside>
+
+            @endauth
             <main class="main">
-                Main Content
+                @yield('content')
             </main>
         </div>
     </div>

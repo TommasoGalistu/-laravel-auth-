@@ -19,6 +19,8 @@ class PostSeeder extends Seeder
             $nw_post->title = $faker->text(20);
             $nw_post->slug = Helper::generateSlug($nw_post->title, Post::class);
             $nw_post->description = $faker->text(99);
+            $nw_post->added_at = $faker->date('d/m/Y');
+            $nw_post->save();
 
         }
     }
