@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Function\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
 class PostController extends Controller
 {
     /**
@@ -21,15 +23,25 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+       $data = $request->all();
+        $post = new Post();
+       $post->slug = Helper::generateSlug($data['title'], Post::class);
+       $post->added_at = date('d/m/Y');
+       $post->fill($data);
+       $post->save();
+
+       return redirect()->route('admin.posts.show', compact('post'));
+
+
+
     }
 
     /**
@@ -43,17 +55,25 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostRequest $request, string $id)
     {
-        //
+        $data = $request->all();
+        $post = Post::find($id);
+
+        if($data['title'] !== $post->title){
+            $data['slug'] = Helper::generateSlug($data['title'], Post::class);
+        }
+
+        $post->update($data);
+        return redirect()->route('admin.posts.show', compact('post'))->with('status', 'Il post è stato modificato correttamente');
     }
 
     /**
