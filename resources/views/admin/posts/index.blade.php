@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('status'))
+<p class="alert alert-success">{{ session('status') }}</p>
+@endif
 
 <table class="table">
     <thead>
@@ -22,7 +25,12 @@
           class="d-flex gap-1">
           <a href="{{route('admin.posts.show', $post)}}" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
           <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></a>
-          <a href="" class="btn btn-danger"> <i class="fa-solid fa-trash-can"></i> </td></a>
+          <form action="{{route('admin.posts.destroy', $post)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+          </form>
+
         </tr>
         @endforeach
 
