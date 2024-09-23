@@ -21,7 +21,7 @@
           <td
           class="d-flex gap-1">
           <a href="{{route('admin.posts.show', $post)}}" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
-          <a href="" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></a>
+          <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></a>
           <a href="" class="btn btn-danger"> <i class="fa-solid fa-trash-can"></i> </td></a>
         </tr>
         @endforeach
